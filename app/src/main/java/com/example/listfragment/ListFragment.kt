@@ -7,9 +7,10 @@ import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import android.view.View
 import android.view.ViewGroup
+import com.example.listfragment.databinding.ActivityNewBinding
+import com.example.listfragment.databinding.ActivityUpdateBinding
 import com.example.listfragment.databinding.FragmentListBinding
-import com.example.listfragment.databinding.NewItemBinding
-import com.example.listfragment.databinding.UpdateItemBinding
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,7 +44,7 @@ class ListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding=FragmentListBinding.inflate(layoutInflater)
-        var adapter = ArrayAdapter(requireContext(),R.layout.simple_list_item_1, arrayList)
+        var adapter = ArrayAdapter(requireContext(),android.R.layout.simple_list_item_1, arrayList)
         arrayList.add("one")
         arrayList.add("two")
         arrayList.add("three")
@@ -52,7 +53,7 @@ class ListFragment : Fragment() {
         binding.listView.adapter=adapter
 
         binding.fabButton.setOnClickListener{
-            var dialogBinding = NewItemBinding.inflate(layoutInflater)
+            var dialogBinding = ActivityNewBinding.inflate(layoutInflater)
             var dialog= Dialog(requireContext())
             dialog.setContentView(dialogBinding.root)
             dialogBinding.btnAdd.setOnClickListener {
@@ -70,7 +71,7 @@ class ListFragment : Fragment() {
         }
 
         binding.listView.setOnItemClickListener {adapterView,view,i,l ->
-            var dialogBinding =UpdateItemBinding.inflate(layoutInflater)
+            var dialogBinding = ActivityUpdateBinding.inflate(layoutInflater)
             var dialog= Dialog(requireContext())
             dialog.setContentView(dialogBinding.root)
             dialogBinding.etUpdateItem.setText(arrayList[i])
@@ -81,7 +82,6 @@ class ListFragment : Fragment() {
                 else{
                     arrayList.set(i,dialogBinding.etUpdateItem.text.toString())
                     adapter.notifyDataSetChanged()
-
                     dialog.dismiss()
                 }
             }
